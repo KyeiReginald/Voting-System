@@ -8,7 +8,7 @@ if ($conn->connect_error) {
 }
 
 // Convert existing plain text passwords to hashed passwords (only run once)
-$users = $conn->query("SELECT id, password FROM users");
+$users = $conn->query("SELECT id, password FROM users"); 
 while ($user = $users->fetch_assoc()) {
     if (!password_get_info($user['password'])['algo']) {
         $hashed_password = password_hash($user['password'], PASSWORD_DEFAULT);

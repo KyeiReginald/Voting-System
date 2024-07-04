@@ -27,7 +27,8 @@ Class Action {
 				return $row['type'];
 			}
 		}
-		return 3; // Login failed
+		return 3; 
+		// Login failed
 	}
 	function logout(){
 		session_destroy();
