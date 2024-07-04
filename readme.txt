@@ -1,4 +1,4 @@
-Free Download Source Code "Voting Management System"
+Free Download or Clone Source Code "Voting System"
 
 FIRST Download
 
@@ -20,7 +20,7 @@ FIRST Download
 
 6. Import voting_db.sql file(given inside the zip package in SQL file folder)
 
-7.Run the script http://localhost/Voting-Management-System
+7.Run the script http://localhost/Voting-System
 
 
 **LOGIN DETAILS** 
