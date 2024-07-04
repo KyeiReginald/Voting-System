@@ -16,19 +16,18 @@ Class Action {
 
 	function login(){
 		extract($_POST);
-		$qry = $this->db->query("SELECT * FROM users where username = '".$username."' and password = '".$password."' ");
+		$qry = $this->db->query("SELECT * FROM users where username = '".$username."'");
 		if($qry->num_rows > 0){
-			foreach ($qry->fetch_array() as $key => $value) {
-				if($key != 'passwors' && !is_numeric($key))
-					$_SESSION['login_'.$key] = $value;
+			$row = $qry->fetch_assoc();
+			if(password_verify($password, $row['password'])){
+				foreach ($row as $key => $value) {
+					if($key != 'password' && !is_numeric($key))
+						$_SESSION['login_'.$key] = $value;
+				}
+				return $row['type'];
 			}
-			if($_SESSION['login_type'] == 1)
-				return 1;
-			else
-				return 2;
-		}else{
-			return 3;
 		}
+		return 3; // Login failed
 	}
 	function logout(){
 		session_destroy();
@@ -86,7 +85,9 @@ Class Action {
 		extract($_POST);
 		$data = " name = '$name' ";
 		$data .= ", username = '$username' ";
-		$data .= ", password = '$password' ";
+		// Hash the password
+		$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+		$data .= ", password = '$hashed_password' ";
 		$data .= ", type = '$type' ";
 		if(empty($id)){
 			$save = $this->db->query("INSERT INTO users set ".$data);
